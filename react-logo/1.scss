@@ -1,0 +1,66 @@
+$color: aqua;
+$sectionWidth: 60vh;
+$sectionHeight: 60vh;
+
+@mixin flexBox($align, $justify) {
+    display: flex;
+    align-items: $align;
+    justify-content: $justify;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: black;
+    @include flexBox(center, center);
+    overflow: hidden;
+    .react-logo{
+        @include flexBox(center, center);
+        width: $sectionWidth;
+        height: $sectionHeight;
+        animation: logo-rotate 6s linear infinite;
+        div{
+            position: absolute;
+            border-radius: 50%;
+            &:nth-child(4){
+                width: $sectionWidth/7;
+                height: $sectionHeight/7; 
+                background-color: $color;
+            }
+            @for $i from 1 through 3 {
+                &:nth-child(#{$i}){
+                    background-color: rgba(255, 255, 255, 0.3);
+                    width: $sectionWidth;
+                    height: $sectionHeight;
+                    transform: rotateZ(120deg * $i) rotateX(65deg);
+                    background-color: transparent;
+                    border-top: 14px solid $color;
+                    border-left: 14px solid $color;
+                    animation: rotate-#{$i} 1s infinite linear;
+               }
+            }
+        }
+    }
+}
+
+@for $i from 1 through 3 {
+   @keyframes rotate-#{$i} {
+       0%{
+           transform: rotateZ(120deg * $i) rotateX(65deg) rotateZ(0);
+       }
+       100%{
+            transform: rotateZ(120deg * $i) rotateX(65deg) rotateZ(360deg);
+       }
+   } 
+}
+
+@keyframes logo-rotate{
+    0%{
+        transform: rotateZ(0deg);
+    }
+    100%{
+        transform: rotateZ(360deg);
+    }
+}
